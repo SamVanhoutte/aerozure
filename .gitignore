@@ -3,6 +3,17 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Remove Secrets
+appsettings.dev.json
+local.settings.json
+src/Cotacol.Workers/local.settings.json
+src/**/.run/**
+
+.DS_Store
+src/.idea/**
+**/.idea/**
+
+
 # User-specific files
 *.rsuser
 *.suo
