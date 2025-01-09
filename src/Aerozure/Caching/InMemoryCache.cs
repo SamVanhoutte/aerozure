@@ -2,6 +2,14 @@ using Aerozure.Extensions;
 
 namespace Aerozure.Caching
 {
+    public class InMemoryCache<TValue> : InMemoryCache<string, TValue>
+    {
+        public InMemoryCache(TimeSpan cacheDuration) : base(cacheDuration)
+        {
+            
+        }
+    }
+
     public class InMemoryCache<TKey, TValue>
     {
         private IDictionary<string, CachedItem<TValue>> _memoryCache = new Dictionary<string, CachedItem<TValue>>();
@@ -11,6 +19,7 @@ namespace Aerozure.Caching
         {
             _defaultCacheDuration = cacheDuration;
         }
+
 
         public async Task<TValue> ReadThroughAsync(TKey cacheKey, Func<TKey, Task<TValue>> readAction)
         {
