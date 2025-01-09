@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using Flurl.Util;
 using Serilog.Context;
 
-namespace Sfinx.Backend.Core.Observability
+namespace Aerozure.Tracing
 {
     public class TraceContext : IDisposable
     {

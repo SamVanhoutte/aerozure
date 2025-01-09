@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using Aerozure.Tracing;
 using Flurl.Util;
 
-namespace Sfinx.Backend.Core.Observability;
+namespace Aerozure.Tracing;
 
 public static class TraceContextExtensionMethods
 {
