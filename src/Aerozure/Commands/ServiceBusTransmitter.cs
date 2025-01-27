@@ -22,21 +22,21 @@ namespace Aerozure.Commands
         }
 
 
-        public async Task SendCommandAsync(AeroCommand command, TimeSpan? delay = null)
+        public async Task SendCommandAsync(AeroCommand command, TimeSpan? delay = null, IDictionary<string, object>? additionalProperties = null)
         {
             var sender = serviceBusClient.CreateSender(settings.CommandTopicName);
-            var message = messageGenerator.CreateMessage(command, delay);
+            var message = messageGenerator.CreateMessage(command, delay, additionalProperties);
 
             await sender.SendMessageAsync(message);
         }
 
-        public async Task SendCommandsAsync(IEnumerable<AeroCommand> commands, TimeSpan? maxDelay = null)
+        public async Task SendCommandsAsync(IEnumerable<AeroCommand> commands, TimeSpan? maxDelay = null, IDictionary<string, object>? additionalProperties = null)
         {
             var sender = serviceBusClient.CreateSender(settings.CommandTopicName);
             var maxSeconds = (int)Math.Round( maxDelay?.TotalSeconds ?? 0);
             var rnd = new Random();
             await sender.SendMessagesAsync(commands.Select(cmd =>
-                messageGenerator.CreateMessage(cmd, TimeSpan.FromSeconds(rnd.Next(0, maxSeconds)))));
+                messageGenerator.CreateMessage(cmd, TimeSpan.FromSeconds(rnd.Next(0, maxSeconds)), additionalProperties)));
         }
 
         public async Task PublishEventAsync(AeroEvent @event, TimeSpan? delay = null)

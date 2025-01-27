@@ -1,12 +1,13 @@
 using Aerozure.Interfaces;
 using Azure.Messaging.ServiceBus;
+using Flurl.Util;
 using Newtonsoft.Json;
 
 namespace Aerozure.Commands
 {
     public class ServiceBusMessageGenerator : IMessageGenerator<ServiceBusMessage>
     {
-        public ServiceBusMessage CreateMessage(AeroCommand command, TimeSpan? commandDelay = null)
+        public ServiceBusMessage CreateMessage(AeroCommand command, TimeSpan? commandDelay = null, IDictionary<string, object>? additionalProperties = null)
         {
             var message = new ServiceBusMessage(command.ToJson());
             message.ApplicationProperties.Add(ServiceBusConstants.CommandTypePropertyName, command.CommandType);
@@ -14,6 +15,11 @@ namespace Aerozure.Commands
             message.SessionId = command.GenerateSessionId();
             message.MessageId = command.GenerateMessageId();
 
+            if (additionalProperties?.Any() ?? false)
+            {
+                message.ApplicationProperties.Merge(additionalProperties);
+            }
+            
             if (commandDelay.HasValue)
             {
                 message.ScheduledEnqueueTime = DateTimeOffset.UtcNow.Add(commandDelay.Value);
@@ -22,13 +28,18 @@ namespace Aerozure.Commands
             return message;
         }
 
-        public ServiceBusMessage CreateMessage(AeroEvent @event, TimeSpan? messageDelay = null)
+        public ServiceBusMessage CreateMessage(AeroEvent @event, TimeSpan? messageDelay = null, IDictionary<string, object>? additionalProperties = null)
         {
             var message = new ServiceBusMessage(@event.ToJson());
             message.ApplicationProperties.Add(ServiceBusConstants.EventTypePropertyName, @event.EventType);
 
             message.MessageId = @event.MessageId;
 
+            if (additionalProperties?.Any() ?? false)
+            {
+                message.ApplicationProperties.Merge(additionalProperties);
+            }
+            
             if (messageDelay.HasValue)
             {
                 message.ScheduledEnqueueTime = DateTimeOffset.UtcNow.Add(messageDelay.Value);
