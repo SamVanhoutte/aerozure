@@ -11,6 +11,7 @@
       <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.18.2" />
       <PackageReference Include="Flurl.Http" Version="4.0.2" />
       <PackageReference Include="Handlebars.Net" Version="2.1.6" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
       <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.0" />
       <PackageReference Include="Namotion.Reflection" Version="2.1.2" />
