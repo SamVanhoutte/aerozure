@@ -18,14 +18,13 @@ public class AzuremlRequest
             data.Add(property.GetValue(payload, null));
         }
 
-        var dataArray = new object[] { data.ToArray() };
         return new AzuremlRequest
         {
             InputData = new InputData
             {
                 Columns = columns.ToArray(),
-                Index = new int[] { 1 },
-                Data = (new List<object[]> { dataArray }).ToArray()
+                Index = [1],
+                Data = [data.ToArray()]
             }
         };
     }

@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAerozure(this IServiceCollection services,
         Action<AeroStartupOptions>? configureRuntime = null)
     {
+        services.AddTransient<AzuremlClient>();
         if (configureRuntime != null)
         {
             ConfigureOptions(services, configureRuntime);
@@ -27,7 +28,6 @@ public static class ServiceCollectionExtensions
         // {
         //     services.AddHttpClient();
         // }
-        services.AddTransient<AzuremlClient>();
 
         if (options.EnableCommunication)
         {
