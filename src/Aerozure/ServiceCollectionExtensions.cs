@@ -1,6 +1,7 @@
 using Aerozure.Commands;
 using Aerozure.Communication;
 using Aerozure.Configuration;
+using CyclingStats.Logic.Prediction;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aerozure;
@@ -26,6 +27,7 @@ public static class ServiceCollectionExtensions
         // {
         //     services.AddHttpClient();
         // }
+        services.AddTransient<AzuremlClient>();
 
         if (options.EnableCommunication)
         {
@@ -36,7 +38,6 @@ public static class ServiceCollectionExtensions
             //     o.GoogleMapKey = options.GoogleMapsConfiguration!.GoogleMapKey;
             // });
         }
-
         if (options.EnableMessaging)
         {
             services.AddMessagingComponents();
