@@ -9,6 +9,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
+
 public class AesEncryptionHelper(IOptions<EncryptionSettings> encryptionSettings) : IEncryptionService
 {
     private readonly byte[] key = Encoding.UTF8.GetBytes(encryptionSettings.Value.SecretKey);
