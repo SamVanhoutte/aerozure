@@ -1,8 +1,8 @@
+using Aerozure.Azureml;
 using Aerozure.Commands;
 using Aerozure.Communication;
 using Aerozure.Configuration;
 using Aerozure.Encryption;
-using CyclingStats.Logic.Prediction;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aerozure;

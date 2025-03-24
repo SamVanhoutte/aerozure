@@ -1,12 +1,9 @@
 using System.Net.Http.Json;
-using System.Reflection;
-using Aerozure.Azureml;
 using Aerozure.Configuration;
-using CyclingStats.Logic.Prediction.Azureml;
 using Flurl.Http;
 using Microsoft.Extensions.Options;
 
-namespace CyclingStats.Logic.Prediction;
+namespace Aerozure.Azureml;
 
 public class AzuremlClient
 {

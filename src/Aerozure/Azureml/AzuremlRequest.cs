@@ -1,6 +1,5 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using CyclingStats.Logic.Prediction.Azureml;
 
 namespace Aerozure.Azureml;
 

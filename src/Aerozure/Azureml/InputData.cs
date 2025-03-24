@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace CyclingStats.Logic.Prediction.Azureml;
+namespace Aerozure.Azureml;
 
 public class InputData
 {
