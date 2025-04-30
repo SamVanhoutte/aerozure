@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using HandlebarsDotNet;
 using Microsoft.Extensions.Options;
 
 namespace Aerozure.Encryption;

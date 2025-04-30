@@ -1,8 +1,10 @@
+using Aerozure.Aspire;
 using Aerozure.Azureml;
 using Aerozure.Commands;
 using Aerozure.Communication;
 using Aerozure.Configuration;
 using Aerozure.Encryption;
+using Aerozure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aerozure;
@@ -39,6 +41,12 @@ public static class ServiceCollectionExtensions
         if (options.EnableMessaging)
         {
             services.AddMessagingComponents();
+        }
+
+        if (options.EnableAspire)
+        {
+            services.Configure<AspireHostingOptions>(o => o.ServiceUrlConfigurationKey = options.AspireOptions?.ServiceUrlConfigurationKey);
+            services.AddSingleton<IServiceUriResolver, AspireServiceUriResolver>();
         }
         return options;
     }
