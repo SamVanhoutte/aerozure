@@ -38,9 +38,21 @@ public static class ServiceCollectionExtensions
             //     o.GoogleMapKey = options.GoogleMapsConfiguration!.GoogleMapKey;
             // });
         }
-        if (options.EnableMessaging)
+        if (options.EnableMessaging && options.MessagingOptions!=null)
         {
-            services.AddMessagingComponents();
+            switch (options.MessagingOptions.MessagingType)
+            {
+                case MessagingType.Debug:
+                    services.AddDebugMessagingComponents();
+                    break;
+                case MessagingType.RabbitMq:
+                    break;
+                case MessagingType.AzureServiceBus:
+                    services.AddServiceBusMessagingComponents();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         if (options.EnableAspire)
