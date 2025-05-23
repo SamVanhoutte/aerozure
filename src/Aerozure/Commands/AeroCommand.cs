@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Aerozure.Commands
 {
-    public abstract class AeroCommand : TraceRequest
+    public abstract class AeroCommand 
     {
         public AeroCommand(string commandType)
         {

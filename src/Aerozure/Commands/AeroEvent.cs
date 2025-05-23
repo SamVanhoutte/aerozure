@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 namespace Aerozure.Commands
 {
     
-    public abstract class AeroEvent : TraceRequest
+    public abstract class AeroEvent
     {
         public AeroEvent(string eventType)
         {
