@@ -39,11 +39,7 @@ public class OpenTelemetryMetricService(IOptions<LoggingConfigurationOptions> lo
         ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         var meter = GetMeter(loggingOptions.Value.ServiceName);
         var counter = GetCounter<T>(name, meter);
-        var tags = new TagList();
-        foreach (var kvp in context)
-        {
-            tags.Add(kvp);
-        }
+        var tags = new TagList(context.ToArray());
         counter.Add(value, tags);
     }
     
@@ -74,9 +70,7 @@ public class OpenTelemetryMetricService(IOptions<LoggingConfigurationOptions> lo
 
     private Meter GetMeter(string name)
     {
-        return meters.GetOrAdd(name, new Meter(new MeterOptions(name)
-        {
-        }));
+        return meters.GetOrAdd(name, new Meter(name));
     }
     
     private Counter<T> GetCounter<T>(string name, Meter meter) where T : struct

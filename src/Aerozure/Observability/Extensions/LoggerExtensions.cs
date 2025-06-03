@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Aerozure.Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Aerozure.Observability.Extensions;
@@ -8,6 +9,7 @@ public static class LoggerExtensions
 {
     public static void ExcludeDefaultLoglevels(this ILoggingBuilder loggingbuilder)
     {
+        loggingbuilder.AddFilter("AspNetCore", LogLevel.Warning);
         loggingbuilder.AddFilter("AspNetCoreEnvironment", LogLevel.Warning);
         loggingbuilder.AddFilter("Microsoft", LogLevel.Error);
         loggingbuilder.AddFilter("System", LogLevel.Error);
@@ -29,5 +31,25 @@ public static class LoggerExtensions
         loggingbuilder.AddFilter("Grpc", LogLevel.Warning);
         loggingbuilder.AddFilter("Azure.Identity", LogLevel.Warning);
         loggingbuilder.AddFilter("Azure.Core", LogLevel.Warning);
+        loggingbuilder.AddFilter("MSAL.NetCore", LogLevel.Error);
+    }
+
+    public static bool ShouldTrace(this HttpContext context, string[]? additionalFilters = null)
+    {
+        // Exclude Blazor SignalR & framework noise!
+        var shouldTrace = !context.Request.Path.Value.StartsWith("/favicon.ico") &&
+                          !context.Request.Path.Value.Contains("/_framework",
+                              StringComparison.InvariantCultureIgnoreCase) &&
+                          !context.Request.Path.Value.Contains("/_blazor",
+                              StringComparison.InvariantCultureIgnoreCase) &&
+                          !context.Request.Path.Value.Contains("_Host", StringComparison.InvariantCultureIgnoreCase) &&
+                          !context.Request.Path.Value.EndsWith(".js", StringComparison.InvariantCultureIgnoreCase) &&
+                          !context.Request.Path.Value.EndsWith(".css", StringComparison.InvariantCultureIgnoreCase) &&
+                          !context.Request.Path.Value.EndsWith(".wasm", StringComparison.InvariantCultureIgnoreCase);
+        if (!shouldTrace) return false;
+
+
+        return !(additionalFilters?.Any(f =>
+            context.Request.Path.Value.Contains(f, StringComparison.InvariantCultureIgnoreCase)) ?? false);
     }
 }
