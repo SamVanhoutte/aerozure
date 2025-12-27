@@ -5,21 +5,13 @@ using Microsoft.Extensions.Options;
 
 namespace Aerozure.Commands
 {
-    public class ServiceBusTransmitter : ICommandTransmitter, IEventPublisher
+    public class ServiceBusTransmitter(
+        ServiceBusClient serviceBusClient,
+        IMessageGenerator<ServiceBusMessage> messageGenerator,
+        IOptions<ServiceBusSettings> settings)
+        : ICommandTransmitter, IEventPublisher
     {
-        private readonly ServiceBusClient serviceBusClient;
-        private readonly IMessageGenerator<ServiceBusMessage> messageGenerator;
-        private readonly ServiceBusSettings settings;
-
-        public ServiceBusTransmitter(
-            ServiceBusClient serviceBusClient,
-            IMessageGenerator<ServiceBusMessage> messageGenerator,
-            IOptions<ServiceBusSettings> settings)
-        {
-            this.settings = settings?.Value;
-            this.serviceBusClient = serviceBusClient;
-            this.messageGenerator = messageGenerator;
-        }
+        private readonly ServiceBusSettings settings = settings?.Value;
 
 
         public async Task SendCommandAsync(AeroCommand command, TimeSpan? delay = null, IDictionary<string, object>? additionalProperties = null)

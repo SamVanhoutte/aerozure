@@ -3,15 +3,8 @@ using Aerozure.Communication.Mailing;
 
 namespace Aerozure.Communication;
 
-public class MailCommunicationService : ICommunicationService
+public class MailCommunicationService(IMailService mailService) : ICommunicationService
 {
-    private readonly IMailService mailService;
-
-    public MailCommunicationService(IMailService mailService)
-    {
-        this.mailService = mailService;
-    }
-
     public async Task<CommunicationContext> SendAsync(CommunicationContext context, Func<CommunicationContext, Task>? loggingTask = null)
     {
         if (context.Email?.Recipient != null)

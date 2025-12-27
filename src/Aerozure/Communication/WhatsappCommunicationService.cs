@@ -8,14 +8,9 @@ using Twilio.Types;
 
 namespace Aerozure.Communication;
 
-public class WhatsappCommunicationService : ICommunicationService
+public class WhatsappCommunicationService(IOptions<TwilioSettings> settings) : ICommunicationService
 {
-    private readonly TwilioSettings twilioSettings;
-
-    public WhatsappCommunicationService(IOptions<TwilioSettings> settings)
-    {
-        twilioSettings = settings.Value;
-    }
+    private readonly TwilioSettings twilioSettings = settings.Value;
 
     public async Task<CommunicationContext> SendAsync(CommunicationContext context, Func<CommunicationContext, Task>? loggingTask = null)
     {

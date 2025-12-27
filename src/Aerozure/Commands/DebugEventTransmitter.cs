@@ -3,18 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Aerozure.Commands;
 
-public class DebugEventTransmitter : ICommandTransmitter, IEventPublisher
+public class DebugEventTransmitter(IMessageGenerator<string> messageGenerator, ILogger<DebugEventTransmitter> logger)
+    : ICommandTransmitter, IEventPublisher
 {
-    private readonly IMessageGenerator<string> messageGenerator;
-    private readonly ILogger<DebugEventTransmitter> logger;
-
-    public DebugEventTransmitter(IMessageGenerator<string> messageGenerator, ILogger<DebugEventTransmitter> logger)
-    {
-        this.messageGenerator = messageGenerator;
-        this.logger = logger;
-    }
-
-
     public async Task SendCommandAsync(AeroCommand command, TimeSpan? delay = null, IDictionary<string, object>? additionalProperties = null)
     {
         var message = messageGenerator.CreateMessage(command, delay, additionalProperties);

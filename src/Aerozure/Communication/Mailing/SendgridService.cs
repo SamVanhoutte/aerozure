@@ -5,15 +5,10 @@ using SendGrid.Helpers.Mail;
 
 namespace Aerozure.Communication.Mailing;
 
-public class SendgridService : IMailService
+public class SendgridService(IOptions<SendGridSettings> settings) : IMailService
 {
-    private readonly SendGridSettings sendGridSettings;
+    private readonly SendGridSettings sendGridSettings = settings.Value;
 
-    public SendgridService(IOptions<SendGridSettings> settings)
-    {
-        sendGridSettings = settings.Value;
-    }
-    
     public async Task<CommResult> SendTemplatedMailAsync(string recipientMail, string? recipientName, string template, object mergeContent)
     {
         var client = new SendGridClient(sendGridSettings.ApiKey);

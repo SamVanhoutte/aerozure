@@ -5,14 +5,10 @@ using Microsoft.Extensions.Options;
 
 namespace Aerozure.Azureml;
 
-public class AzuremlClient
+public class AzuremlClient(IOptions<AzuremlOptions> mlOptions)
 {
-    private readonly AzuremlOptions mlOptions;
-    
-    public AzuremlClient(IOptions<AzuremlOptions> mlOptions)
-    {
-        this.mlOptions = mlOptions.Value;
-    }
+    private readonly AzuremlOptions mlOptions = mlOptions.Value;
+
     public async Task<T?> CallInferenceAsync<T>(object request)
     {
         var mlRequest = AzuremlRequest.Create(request);
