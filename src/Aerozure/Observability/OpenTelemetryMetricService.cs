@@ -3,8 +3,6 @@ using System.Diagnostics.Metrics;
 using Aerozure.Configuration;
 using Aerozure.Extensions;
 using Aerozure.Tracing;
-using Flurl.Util;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Aerozure.Observability;

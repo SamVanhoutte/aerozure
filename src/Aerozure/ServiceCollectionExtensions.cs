@@ -6,8 +6,6 @@ using Aerozure.Configuration;
 using Aerozure.Encryption;
 using Aerozure.Interfaces;
 using Aerozure.Observability;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aerozure;

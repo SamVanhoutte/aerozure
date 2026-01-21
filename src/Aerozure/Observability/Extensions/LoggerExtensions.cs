@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using Aerozure.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 

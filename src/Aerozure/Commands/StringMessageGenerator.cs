@@ -1,6 +1,5 @@
 using Aerozure.Interfaces;
 using Azure.Messaging.ServiceBus;
-using Flurl.Util;
 using Newtonsoft.Json;
 
 namespace Aerozure.Commands

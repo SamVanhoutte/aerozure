@@ -1,6 +1,5 @@
 using System.Reflection;
 using Flurl.Util;
-using Namotion.Reflection;
 
 namespace Aerozure.Tracing;
 
