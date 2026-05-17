@@ -3,7 +3,7 @@ using Flurl.Util;
 
 namespace Aerozure.Tracing;
 
-public static class TraceContextExtensionMethods
+public static class TraceContextSetExtensionMethods
 {
     public static Dictionary<string, object> GetTraceContext
     (this object? request, Dictionary<string, object> runtimeContext,
@@ -95,6 +95,12 @@ public static class TraceContextExtensionMethods
         return traceContext;
     }
 
+    public static IDisposable SetTraceContext(this IDictionary<string, object> traceContext, object traceObject, string name, string value)
+    {
+        // TODO : this is not used
+        return new TraceDisposable();
+    }
+    
     private static bool IsCustomComplexType(this PropertyInfo propertyInfo)
     {
         var type = propertyInfo.PropertyType;
@@ -113,5 +119,14 @@ public static class TraceContextExtensionMethods
             && type != typeof(DateTime)
             && !type.IsEnum
             && (type.Namespace == null || !type.Namespace.StartsWith("System"));
+    }
+    
+    
+}
+
+public class TraceDisposable : IDisposable
+{
+    public void Dispose()
+    {
     }
 }
