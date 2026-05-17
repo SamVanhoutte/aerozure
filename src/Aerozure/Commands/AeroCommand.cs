@@ -3,15 +3,10 @@ using Newtonsoft.Json.Linq;
 
 namespace Aerozure.Commands
 {
-    public abstract class AeroCommand : TraceRequest
+    public abstract class AeroCommand(string commandType)
     {
-        public AeroCommand(string commandType)
-        {
-            this.CommandType = commandType.ToString();
-        }
-
         [TraceProperty]
-        public string CommandType { get; }
+        public string CommandType { get; } = commandType.ToString();
 
         public string ToJson()
         {

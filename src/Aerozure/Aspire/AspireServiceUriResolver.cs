@@ -1,7 +1,6 @@
 using Aerozure.Configuration;
 using Aerozure.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace Aerozure.Aspire;

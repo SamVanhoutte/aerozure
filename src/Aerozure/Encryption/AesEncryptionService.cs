@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 
-public class AesEncryptionHelper(IOptions<EncryptionSettings> encryptionSettings) : IEncryptionService
+public class AesEncryptionService(IOptions<EncryptionSettings> encryptionSettings) : IEncryptionService
 {
     private readonly byte[] key = Encoding.UTF8.GetBytes(encryptionSettings.Value.SecretKey);
     private readonly byte[] initializationVector = Encoding.UTF8.GetBytes(encryptionSettings.Value.InitializationVector);

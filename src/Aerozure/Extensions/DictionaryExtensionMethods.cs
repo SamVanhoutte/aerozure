@@ -13,17 +13,21 @@
                 dictionary.Add(key, value);
             }
         }
-        
-        public static T GetValue<T>(this IDictionary<string, object> dictionary, string key, T defaultValue = default(T)) 
+
+        public static T GetValue<T>(this IDictionary<string, object> dictionary, string key,
+            T defaultValue = default(T))
         {
             if (dictionary.TryGetValue(key, out var value))
             {
-                if (value is T castedValue) {
+                if (value is T castedValue)
+                {
                     return castedValue;
-                } 
-                try {
+                }
+
+                try
+                {
                     return (T)Convert.ChangeType(value, typeof(T));
-                } 
+                }
                 catch (InvalidCastException)
                 {
                     return defaultValue;
@@ -32,5 +36,17 @@
 
             return defaultValue;
         }
+
+        public static T GetOrAdd<T>(this IDictionary<string, T> dictionary, string key, T newValue)
+        {
+            if (dictionary.TryGetValue(key, out var result))
+            {
+                return result;
+            }
+
+            dictionary.Add(key, newValue);
+            return newValue;
+        }
+
     }
 }

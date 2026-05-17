@@ -4,15 +4,10 @@ using Newtonsoft.Json.Linq;
 namespace Aerozure.Commands
 {
     
-    public abstract class AeroEvent : TraceRequest
+    public abstract class AeroEvent(string eventType)
     {
-        public AeroEvent(string eventType)
-        {
-            this.EventType = eventType.ToString();
-        }
-
         [TraceProperty]
-        public string EventType { get; }
+        public string EventType { get; } = eventType.ToString();
 
         [TraceProperty]
         public abstract string MessageId { get; }
