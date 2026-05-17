@@ -8,14 +8,9 @@ using Twilio.Types;
 
 namespace Aerozure.Communication;
 
-public class SmsCommunicationService : ICommunicationService
+public class SmsCommunicationService(IOptions<TwilioSettings> settings) : ICommunicationService
 {
-    private readonly TwilioSettings twilioSettings;
-
-    public SmsCommunicationService(IOptions<TwilioSettings> settings)
-    {
-        twilioSettings = settings.Value;
-    }
+    private readonly TwilioSettings twilioSettings = settings.Value;
 
     public async Task<CommunicationContext> SendAsync(CommunicationContext context, Func<CommunicationContext, Task>? loggingTask = null)
     {

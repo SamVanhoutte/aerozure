@@ -1,5 +1,3 @@
-using OpenTelemetry;
-using OpenTelemetry.Logs;
 namespace Aerozure.Observability.OpenTelemetry.Filters;
 //
 // public class LogFilterExporter( AzureMonitorLogExporter innerExporter, Func<LogRecord, bool> filter) : BaseExporter<LogRecord>

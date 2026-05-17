@@ -2,23 +2,11 @@ using Aerozure.Extensions;
 
 namespace Aerozure.Caching
 {
-    public class InMemoryCache<TValue> : InMemoryCache<string, TValue>
-    {
-        public InMemoryCache(TimeSpan cacheDuration) : base(cacheDuration)
-        {
-            
-        }
-    }
+    public class InMemoryCache<TValue>(TimeSpan cacheDuration) : InMemoryCache<string, TValue>(cacheDuration);
 
-    public class InMemoryCache<TKey, TValue>
+    public class InMemoryCache<TKey, TValue>(TimeSpan cacheDuration)
     {
         private IDictionary<string, CachedItem<TValue>> _memoryCache = new Dictionary<string, CachedItem<TValue>>();
-        private TimeSpan _defaultCacheDuration;
-
-        public InMemoryCache(TimeSpan cacheDuration)
-        {
-            _defaultCacheDuration = cacheDuration;
-        }
 
 
         public async Task<TValue> ReadThroughAsync(TKey cacheKey, Func<TKey, Task<TValue>> readAction)
@@ -40,7 +28,7 @@ namespace Aerozure.Caching
             {
                 if (newEntry != null)
                 {
-                    var newCacheItem = new CachedItem<TValue>(newEntry, _defaultCacheDuration);
+                    var newCacheItem = new CachedItem<TValue>(newEntry, cacheDuration);
                     _memoryCache.Upsert(cacheKey.ToString(), newCacheItem);
                 }
 
@@ -55,7 +43,7 @@ namespace Aerozure.Caching
             var result = await persistAction(cacheKey, updatedValue);
             lock (_memoryCache)
             {
-                _memoryCache.Upsert(cacheKey.ToString(), new CachedItem<TValue>(updatedValue, _defaultCacheDuration));
+                _memoryCache.Upsert(cacheKey.ToString(), new CachedItem<TValue>(updatedValue, cacheDuration));
             }
 
             return result;
