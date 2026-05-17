@@ -35,9 +35,9 @@ public class OpenTelemetryMetricService(IOptions<LoggingConfigurationOptions> lo
     {
         ArgumentNullException.ThrowIfNull(loggingOptions, nameof(loggingOptions));
         ArgumentNullException.ThrowIfNull(loggingOptions.Value, nameof(loggingOptions.Value));
-        ArgumentException.ThrowIfNullOrWhiteSpace(loggingOptions.Value.ServiceName, nameof(loggingOptions.Value.ServiceName));
+        //ArgumentException.ThrowIfNullOrWhiteSpace(loggingOptions.Value.ServiceName, nameof(loggingOptions.Value.ServiceName));
         ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
-        var meter = GetMeter(loggingOptions.Value.ServiceName);
+        var meter = GetMeter(loggingOptions.Value.ServiceName ?? "aerozure");
         var counter = GetCounter<T>(name, meter);
         var tags = new TagList();
         foreach (var kvp in context)

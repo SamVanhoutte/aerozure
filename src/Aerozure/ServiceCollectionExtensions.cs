@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<AzuremlClient>();
         services.AddSingleton<IEncryptionService, AesEncryptionService>();
         services.AddSingleton<IActivityObserver, ActivityObserver>();
+        services.AddSingleton<IMetricService, OpenTelemetryMetricService>();
         ConfigureOptions(services, configureRuntime);
         if (!string.IsNullOrEmpty(telemetryActivitySource))
         {

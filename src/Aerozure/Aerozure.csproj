@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Aspire.Azure.Messaging.ServiceBus" Version="9.3.0" />
       <PackageReference Include="Aspire.Hosting.AppHost" Version="9.2.0" />
       <PackageReference Include="Azure.Identity" Version="1.13.2" />
       <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.19.0" />
