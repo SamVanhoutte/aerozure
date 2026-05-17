@@ -26,8 +26,8 @@ public class AeroStartupOptions
         LoggingOptions = options;
     }
     
-    public void ConfigureAspire(AspireHostingOptions? options)
+    public void ConfigureAspire(AspireHostingOptions? options = null)
     {
-        AspireOptions = options;
+        AspireOptions = options ?? new AspireHostingOptions();
     }
 }

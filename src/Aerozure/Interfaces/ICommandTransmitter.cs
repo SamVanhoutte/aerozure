@@ -1,4 +1,6 @@
 using Aerozure.Commands;
+using Azure.Messaging.ServiceBus;
+using Microsoft.Extensions.Options;
 
 namespace Aerozure.Interfaces
 {
@@ -7,4 +9,5 @@ namespace Aerozure.Interfaces
         Task SendCommandAsync(AeroCommand command, TimeSpan? delay = null, IDictionary<string, object>? additionalProperties = null);
         Task SendCommandsAsync(IEnumerable<AeroCommand> commands, TimeSpan? maxDelay = null, IDictionary<string, object>? additionalProperties = null);
     }
+    
 }
